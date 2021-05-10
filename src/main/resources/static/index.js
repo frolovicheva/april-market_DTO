@@ -43,18 +43,19 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         console.log(product);
     }
 
-    $scope.pingProduct = function (productId) {
-        $http({
-            url: contextPath + '/api/v1/cart/ping',
-            method: 'GET',
-            params: {
-                id: productId,
-                temp: 'empty'
-            }
-        }).then(function (response) {
-            console.log("OK");
-        });
-    }
+
+    $scope.addProductDtoToCart = function (id) {
+            $http({
+                url: contextPath + '/api/v1/cart/add/',
+                method: 'GET',
+                params: {
+                    id: id,
+                    temp: 'empty'
+                }
+            }).then(function (response) {
+                console.log("OK");
+            });
+        }
 
     $scope.generatePagesIndexes = function (startPage, endPage) {
         let arr = [];

@@ -6,7 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.geekbrains.april.market.dtos.CartDto;
+import ru.geekbrains.april.market.dtos.ProductDto;
 import ru.geekbrains.april.market.utils.Cart;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/cart")
@@ -15,8 +19,22 @@ import ru.geekbrains.april.market.utils.Cart;
 public class CartController {
     private final Cart cart;
 
-    @GetMapping("/ping")
-    public void ping(@RequestParam Long id) {
-        log.info("ping: " + id);
+    @GetMapping
+    public CartDto getCartDto(Cart cart){
+        return new CartDto(cart);
+    }
+    @GetMapping("/add/{id}")
+    public void addToCart(@RequestParam Long id) {
+      cart.addProductDto (id);
+    }
+
+    @GetMapping("/remove/{id}")
+    public void removeFromCart(@RequestParam Long id) {
+        cart.removeProductDto (id);
+    }
+
+    @GetMapping("/clear")
+    public void clearCart() {
+        cart.clearAllProductDtos ();
     }
 }
